@@ -5,7 +5,6 @@ function gameFieldOutput = drawObject( gameFieldInput, object, posX, posY )
 % dopisac odswiezanie obrazka
 gameFieldCopy = gameFieldInput;
 objectSize = size(object);
-disp(objectSize);
 gameFieldCopy(posY:posY+(objectSize(1)-1), posX:posX+(objectSize(2)-1), :) = object(:,:,:);
 gameFieldOutput = gameFieldCopy;
 
