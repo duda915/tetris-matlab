@@ -22,7 +22,7 @@ function varargout = tetris(varargin)
 
 % Edit the above text to modify the response to help tetris
 
-% Last Modified by GUIDE v2.5 28-Apr-2018 14:36:04
+% Last Modified by GUIDE v2.5 28-Apr-2018 16:27:23
 
 % Begin initialization code - DO NOT EDIT
 gui_Singleton = 1;
@@ -54,6 +54,7 @@ function tetris_OpeningFcn(hObject, eventdata, handles, varargin)
 
 axes(handles.gameAxes);
 handles.gameField = buildGameField(12, 22);
+handles.gameState = 0;
 assignin('base', 'gameField', handles.gameField);
 imshow(handles.gameField);
 
@@ -76,3 +77,21 @@ function varargout = tetris_OutputFcn(hObject, eventdata, handles)
 
 % Get default command line output from handles structure
 varargout{1} = handles.output;
+
+
+% --- Executes on button press in startButton.
+function startButton_Callback(hObject, eventdata, handles)
+if(strcmp(handles.startButton.String, 'START') == 1)
+    set(handles.gameState, 'userdata', 1);
+    handles.startButton.String = 'STOP';
+    gameLoop(handles, handles.gameField, handles.scoreLabel);
+else
+    set(handles.gameState, 'userdata', 0);
+    handles.startButton.String = 'START';
+%     set(gcbo, 'userdata', 0);
+end
+
+guidata(hObject, handles);
+% hObject    handle to startButton (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
