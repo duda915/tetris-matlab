@@ -16,25 +16,9 @@ if strcmp(mode, 'down') == 1
         end
     end
 elseif strcmp(mode, 'left') == 1
-    disp('topleft:');
-    disp(gameFieldHandle(posY - gameTileSize, posX - gameTileSize, 1));
-    disp(gameFieldHandle(posY - gameTileSize, posX - gameTileSize, 2));
-    disp(gameFieldHandle(posY - gameTileSize, posX - gameTileSize, 3));
-    disp('left:');
-    disp(gameFieldHandle(posY, posX - gameTileSize, 1));
-    disp(gameFieldHandle(posY, posX - gameTileSize, 2));
-    disp(gameFieldHandle(posY, posX - gameTileSize, 3));
-    disp('botleft:');
-    disp(gameFieldHandle(posY + gameTileSize, posX - gameTileSize, 1));
-    disp(gameFieldHandle(posY + gameTileSize, posX - gameTileSize, 2));
-    disp(gameFieldHandle(posY + gameTileSize, posX - gameTileSize, 3));
-
     if(gameFieldHandle(posY, posX - gameTileSize, 1) == 255)
-        disp('if');
         if(gameFieldHandle(posY, posX - gameTileSize, 2) == 223)
-            disp('if');
             if(gameFieldHandle(posY, posX - gameTileSize, 3) == 186)
-                disp('nocollition');
                 collision = 0;
             end
         end

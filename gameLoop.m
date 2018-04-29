@@ -25,7 +25,7 @@ gameTileSize = blockSize(1);
 gravityIter = 6;
 tickTime = 1/60;
 tickIterator = 0;
-blockBuilderStart = [gameTileSize*5, gameTileSize*1];
+blockBuilderStart = [gameTileSize*6, gameTileSize*1; gameTileSize*5, gameTileSize*1];
 blockBuilder = blockBuilderStart;
 %% Game Loop
 gameFieldHandle = drawComplexObject(gameFieldHandle, activeBlock, blockBuilder);
@@ -55,6 +55,8 @@ while(gameState == 1)
                 blockBuilder(:, 1) = blockBuilder(:, 1) + gameTileSize;
                 gameFieldHandle = drawComplexObject(gameFieldHandle, activeBlock, blockBuilder);
             end
+        elseif p == 's'
+            tickIterator = gravityIter;
         end
         
         set(gcf, 'CurrentCharacter', 'x');
