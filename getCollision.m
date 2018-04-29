@@ -40,9 +40,8 @@ elseif strcmp(mode, 'right')
             k = k+1;
         else
             testMember = ismember(tmpset, positionArray(i, 2));
-            tmpSize = size(tmpset)
+            tmpSize = size(tmpset);
             for j = 1:tmpSize(2)
-                j
                 if testMember(j) == 1
                     if collisionBuilder(j, 1) < positionArray(i, 1)
                         collisionBuilder(j,1) = positionArray(i, 1);

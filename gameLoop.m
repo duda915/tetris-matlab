@@ -41,6 +41,7 @@ blockBuilderT = [gameTileSize*5, gameTileSize*2; gameTileSize*5, gameTileSize*1;
 blockBuilder = blockBuilderI;
 %% Game Loop
 gameFieldHandle = drawComplexObject(gameFieldHandle, activeBlock, blockBuilder);
+
 while(gameState == 1)
     %% Update 
     p = get(gcf, 'CurrentCharacter');
@@ -50,7 +51,6 @@ while(gameState == 1)
         if(p == 'a')
             collision = getCollision(gameFieldHandle, gameTileSize, blockBuilder, 'left');
             if(collision == 0)
-                disp('success left');
                 gameFieldHandle = drawComplexObject(gameFieldHandle, blockEmpty, blockBuilder);
                 blockBuilder(:, 1) = blockBuilder(:, 1) - gameTileSize;
                 gameFieldHandle = drawComplexObject(gameFieldHandle, activeBlock, blockBuilder);
@@ -58,7 +58,6 @@ while(gameState == 1)
         elseif p == 'd'
             collision = getCollision(gameFieldHandle, gameTileSize, blockBuilder, 'right');
             if(collision == 0)
-                disp('success right');
                 gameFieldHandle = drawComplexObject(gameFieldHandle, blockEmpty, blockBuilder);
                 blockBuilder(:, 1) = blockBuilder(:, 1) + gameTileSize;
                 gameFieldHandle = drawComplexObject(gameFieldHandle, activeBlock, blockBuilder);
@@ -127,7 +126,6 @@ while(gameState == 1)
     
     axes(handles.gameAxes);
     I = imshow(gameFieldHandle);
-    set(I, 'AlphaData', 1.0);
     tickIterator = tickIterator+1;
     pause(tickTime);
     

@@ -19,14 +19,11 @@ for i = 2:size(blockBuilderCopy)
     distY = blockBuilderCopy(i, 2) - blockBuilderCopy(1, 2);
     blockBuilderCopy(i, 1) = blockBuilderCopy(1, 1) - distY;
     blockBuilderCopy(i, 2) = blockBuilderCopy(1, 2) + distX;
-    disp('rot');
 end
 
 collision = getCollision(gameFieldCopy, gameTileSize, blockBuilderCopy, 'center');
 
-disp(collision);
 if(collision == 0)
-    disp('here');
     blockBuilderOut = blockBuilderCopy;
 else
     blockBuilderOut = blockBuilder;
