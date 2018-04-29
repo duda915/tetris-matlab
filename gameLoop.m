@@ -79,6 +79,7 @@ while(gameState == 1)
         collision = getCollision(gameFieldHandle, gameTileSize, blockBuilder, 'down');
         tickIterator = 0;
         if(collision == 1)
+            gameFieldHandle = checkLine(gameFieldHandle, gameTileSize);
             blockRandomizer = randi(7);
             switch blockRandomizer
                 case 1
@@ -117,8 +118,10 @@ while(gameState == 1)
     handles.scoreLabel.String = tickIterator;
     
     %% Render
+    
     axes(handles.gameAxes);
-    imshow(gameFieldHandle);
+    I = imshow(gameFieldHandle);
+    set(I, 'AlphaData', 1.0);
     tickIterator = tickIterator+1;
     pause(tickTime);
     

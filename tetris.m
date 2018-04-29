@@ -55,7 +55,7 @@ function tetris_OpeningFcn(hObject, eventdata, handles, varargin)
 axes(handles.gameAxes);
 handles.gameField = buildGameField(12, 22);
 handles.gameState = 0;
-assignin('base', 'gameField', handles.gameField);
+% assignin('base', 'gameField', handles.gameField);
 imshow(handles.gameField);
 
 % Choose default command line output for tetris
