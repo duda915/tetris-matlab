@@ -17,7 +17,8 @@ if strcmp(mode, 'left')
             k = k+1;
         else
             testMember = ismember(tmpset, positionArray(i, 2));
-            for j = 1:size(tmpset)
+            tmpSize = size(tmpset);
+            for j = 1:tmpSize(2)
                 if testMember(j) == 1
                     if collisionBuilder(j, 1) > positionArray(i, 1)
                         collisionBuilder(j,1) = positionArray(i, 1);
@@ -27,7 +28,7 @@ if strcmp(mode, 'left')
             end
         end
     end
-                
+    
 elseif strcmp(mode, 'right')
     tmpset(k) = positionArray(1,2);
     k = k+1;
@@ -39,7 +40,9 @@ elseif strcmp(mode, 'right')
             k = k+1;
         else
             testMember = ismember(tmpset, positionArray(i, 2));
-            for j = 1:size(tmpset)
+            tmpSize = size(tmpset)
+            for j = 1:tmpSize(2)
+                j
                 if testMember(j) == 1
                     if collisionBuilder(j, 1) < positionArray(i, 1)
                         collisionBuilder(j,1) = positionArray(i, 1);
@@ -61,7 +64,8 @@ elseif strcmp(mode, 'down')
             k = k+1;
         else
             testMember = ismember(tmpset, positionArray(i, 1));
-            for j = 1:size(tmpset)
+            tmpSize = size(tmpset);
+            for j = 1:tmpSize(2)
                 if testMember(j) == 1
                     if collisionBuilder(j, 2) < positionArray(i, 2)
                         collisionBuilder(j,1) = positionArray(i, 1);

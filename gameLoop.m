@@ -8,6 +8,10 @@ gameState = get(handles.gameState, 'userdata');
 block1 = imread('res/block1.png');
 block2 = imread('res/block2.png');
 block3 = imread('res/block3.png');
+block4 = imread('res/block4.png');
+block5 = imread('res/block5.png');
+block6 = imread('res/block6.png');
+block7 = imread('res/block7.png');
 blockEmpty = imread('res/blockempty.png');
 
 %% Util vars
@@ -19,14 +23,22 @@ blockWidthRBorder = 11;
 blockHeight = 22;
 blockHeightEnd = 20;
 
-blockRandomizer = randi(3);
+blockRandomizer = randi(7);
 blockSize = size(block1);
 gameTileSize = blockSize(1);
 gravityIter = 6;
 tickTime = 1/60;
 tickIterator = 0;
-blockBuilderStart = [gameTileSize*6, gameTileSize*1; gameTileSize*5, gameTileSize*1];
-blockBuilder = blockBuilderStart;
+% blockBuilderStart(1) = [gameTileSize*6, gameTileSize*1; gameTileSize*5, gameTileSize*1];
+blockBuilderJ = [gameTileSize*5, gameTileSize*1; gameTileSize*5, gameTileSize*2; gameTileSize*6, gameTileSize*2; gameTileSize*7, gameTileSize*2];
+blockBuilderL = [gameTileSize*7, gameTileSize*1; gameTileSize*5, gameTileSize*2; gameTileSize*6, gameTileSize*2; gameTileSize*7, gameTileSize*2];
+blockBuilderI = [gameTileSize*5, gameTileSize*1; gameTileSize*6, gameTileSize*1; gameTileSize*7, gameTileSize*1; gameTileSize*4, gameTileSize*1];
+blockBuilderO = [gameTileSize*5, gameTileSize*1; gameTileSize*6, gameTileSize*1; gameTileSize*5, gameTileSize*2; gameTileSize*6, gameTileSize*2];
+blockBuilderS = [gameTileSize*5, gameTileSize*1; gameTileSize*6, gameTileSize*1; gameTileSize*5, gameTileSize*2; gameTileSize*4, gameTileSize*2];
+blockBuilderZ = [gameTileSize*4, gameTileSize*1; gameTileSize*5, gameTileSize*1; gameTileSize*5, gameTileSize*2; gameTileSize*6, gameTileSize*2];
+blockBuilderT = [gameTileSize*5, gameTileSize*1; gameTileSize*4, gameTileSize*2; gameTileSize*5, gameTileSize*2; gameTileSize*6, gameTileSize*2];
+
+blockBuilder = blockBuilderT;
 %% Game Loop
 gameFieldHandle = drawComplexObject(gameFieldHandle, activeBlock, blockBuilder);
 while(gameState == 1)
@@ -36,9 +48,7 @@ while(gameState == 1)
     if(p~= 'x')
         
         if(p == 'a')
-            disp('trying left collision:');
             collision = getCollision(gameFieldHandle, gameTileSize, blockBuilder, 'left');
-            disp(collision);
             if(collision == 0)
                 disp('success left');
                 gameFieldHandle = drawComplexObject(gameFieldHandle, blockEmpty, blockBuilder);
@@ -46,9 +56,7 @@ while(gameState == 1)
                 gameFieldHandle = drawComplexObject(gameFieldHandle, activeBlock, blockBuilder);
             end
         elseif p == 'd'
-            disp('trying right collision:');
             collision = getCollision(gameFieldHandle, gameTileSize, blockBuilder, 'right');
-            disp(collision);
             if(collision == 0)
                 disp('success right');
                 gameFieldHandle = drawComplexObject(gameFieldHandle, blockEmpty, blockBuilder);
@@ -67,7 +75,31 @@ while(gameState == 1)
         collision = getCollision(gameFieldHandle, gameTileSize, blockBuilder, 'down');
         tickIterator = 0;
         if(collision == 1)
-            blockBuilder = blockBuilderStart;
+            blockRandomizer = randi(7);
+            switch blockRandomizer
+                case 1
+                    blockBuilder = blockBuilderJ;
+                    activeBlock = block1;
+                case 2
+                    blockBuilder = blockBuilderL;
+                    activeBlock = block2;
+                case 3
+                    blockBuilder = blockBuilderI;
+                    activeBlock = block3;
+                case 4
+                    blockBuilder = blockBuilderO;
+                    activeBlock = block4;
+                case 5
+                    blockBuilder = blockBuilderS;
+                    activeBlock = block5;
+                case 6
+                    blockBuilder = blockBuilderZ;
+                    activeBlock = block6;
+                case 7
+                    blockBuilder = blockBuilderT;
+                    activeBlock = block7;
+            end
+            
             gameFieldHandle = drawComplexObject(gameFieldHandle, activeBlock, blockBuilder);
         else
             gameFieldHandle = drawComplexObject(gameFieldHandle, blockEmpty, blockBuilder);
