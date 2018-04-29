@@ -1,30 +1,89 @@
 function gameLoop(handles, gameFieldHandle, scoreHandle)
 %GAMELOOP Summary of this function goes here
 %   Detailed explanation goes here
-% set(handles.gameState, 'userdata', 1);
+
 gameState = get(handles.gameState, 'userdata');
-gameTileSize = 64;
+
+% Res
 block1 = imread('res/block1.png');
 block2 = imread('res/block2.png');
 block3 = imread('res/block3.png');
-ran = 1;
+blockEmpty = imread('res/blockempty.png');
+
+%% Util vars
+activeBlock = block1;
+
+blockWidth = 12;
+blockWidthLBorder = 2;
+blockWidthRBorder = 11;
+blockHeight = 22;
+blockHeightEnd = 20;
+
+blockRandomizer = randi(3);
+blockSize = size(block1);
+gameTileSize = blockSize(1);
+gravityIter = 6;
+tickTime = 1/60;
+tickIterator = 0;
+blockBuilderStart = [gameTileSize*5, gameTileSize*1];
+blockBuilder = blockBuilderStart;
+%% Game Loop
+gameFieldHandle = drawComplexObject(gameFieldHandle, activeBlock, blockBuilder);
 while(gameState == 1)
+    %% Update 
+    p = get(gcf, 'CurrentCharacter');
     
-    gameFieldHandle = deleteObject(gameFieldHandle, block1, gameTileSize*4 , gameTileSize*3);
-    gameState = get(handles.gameState, 'userdata');
-    if(ran == 1)
-        gameFieldHandle = drawObject(gameFieldHandle, block1, gameTileSize*4 , gameTileSize*3);
-    elseif ran == 2
-        gameFieldHandle = drawObject(gameFieldHandle, block2, gameTileSize*4 , gameTileSize*3);
-    elseif ran == 3
-        gameFieldHandle = drawObject(gameFieldHandle, block3, gameTileSize*4 , gameTileSize*3);
-        ran = 0;
+    if(p~= 'x')
+        
+        if(p == 'a')
+            disp('trying left collision:');
+            collision = getCollision(gameFieldHandle, gameTileSize, blockBuilder, 'left');
+            disp(collision);
+            if(collision == 0)
+                disp('success left');
+                gameFieldHandle = drawComplexObject(gameFieldHandle, blockEmpty, blockBuilder);
+                blockBuilder(:, 1) = blockBuilder(:, 1) - gameTileSize;
+                gameFieldHandle = drawComplexObject(gameFieldHandle, activeBlock, blockBuilder);
+            end
+        elseif p == 'd'
+            disp('trying right collision:');
+            collision = getCollision(gameFieldHandle, gameTileSize, blockBuilder, 'right');
+            disp(collision);
+            if(collision == 0)
+                disp('success right');
+                gameFieldHandle = drawComplexObject(gameFieldHandle, blockEmpty, blockBuilder);
+                blockBuilder(:, 1) = blockBuilder(:, 1) + gameTileSize;
+                gameFieldHandle = drawComplexObject(gameFieldHandle, activeBlock, blockBuilder);
+            end
+        end
+        
+        set(gcf, 'CurrentCharacter', 'x');
     end
-    handles.scoreLabel.String = ran;
-    ran = ran + 1;
+        
+    
+    if tickIterator == gravityIter
+        collision = getCollision(gameFieldHandle, gameTileSize, blockBuilder, 'down');
+        tickIterator = 0;
+        if(collision == 1)
+            blockBuilder = blockBuilderStart;
+            gameFieldHandle = drawComplexObject(gameFieldHandle, activeBlock, blockBuilder);
+        else
+            gameFieldHandle = drawComplexObject(gameFieldHandle, blockEmpty, blockBuilder);
+            blockBuilder(:, 2) = blockBuilder(:, 2) + gameTileSize;
+            gameFieldHandle = drawComplexObject(gameFieldHandle, activeBlock, blockBuilder);
+        end
+    end
+    
+    gameState = get(handles.gameState, 'userdata');
+
+    handles.scoreLabel.String = tickIterator;
+    
+    %% Render
     axes(handles.gameAxes);
     imshow(gameFieldHandle);
-    pause(0.01);
+    tickIterator = tickIterator+1;
+    pause(tickTime);
+    
 end
             
     
