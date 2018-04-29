@@ -31,6 +31,14 @@ elseif strcmp(mode, 'right') == 1
             end
         end
     end
+elseif strcmp(mode, 'center') == 1
+    if gameFieldHandle(posY, posX, 1) == 255
+        if gameFieldHandle(posY, posX, 2) == 223
+            if gameFieldHandle(posY, posX, 3) == 186
+                collision = 0;
+            end
+        end
+    end
 end
 end
 

@@ -75,6 +75,8 @@ elseif strcmp(mode, 'down')
             end
         end
     end
+elseif strcmp(mode, 'center')
+    collisionBuilder = positionArray;
 end
 
 posSize = size(collisionBuilder);

@@ -30,13 +30,13 @@ gravityIter = 6;
 tickTime = 1/60;
 tickIterator = 0;
 % blockBuilderStart(1) = [gameTileSize*6, gameTileSize*1; gameTileSize*5, gameTileSize*1];
-blockBuilderJ = [gameTileSize*5, gameTileSize*1; gameTileSize*5, gameTileSize*2; gameTileSize*6, gameTileSize*2; gameTileSize*7, gameTileSize*2];
-blockBuilderL = [gameTileSize*7, gameTileSize*1; gameTileSize*5, gameTileSize*2; gameTileSize*6, gameTileSize*2; gameTileSize*7, gameTileSize*2];
+blockBuilderJ = [gameTileSize*6, gameTileSize*2; gameTileSize*5, gameTileSize*1; gameTileSize*5, gameTileSize*2; gameTileSize*7, gameTileSize*2];
+blockBuilderL = [gameTileSize*6, gameTileSize*2; gameTileSize*7, gameTileSize*1; gameTileSize*5, gameTileSize*2; gameTileSize*7, gameTileSize*2];
 blockBuilderI = [gameTileSize*5, gameTileSize*1; gameTileSize*6, gameTileSize*1; gameTileSize*7, gameTileSize*1; gameTileSize*4, gameTileSize*1];
 blockBuilderO = [gameTileSize*5, gameTileSize*1; gameTileSize*6, gameTileSize*1; gameTileSize*5, gameTileSize*2; gameTileSize*6, gameTileSize*2];
 blockBuilderS = [gameTileSize*5, gameTileSize*1; gameTileSize*6, gameTileSize*1; gameTileSize*5, gameTileSize*2; gameTileSize*4, gameTileSize*2];
-blockBuilderZ = [gameTileSize*4, gameTileSize*1; gameTileSize*5, gameTileSize*1; gameTileSize*5, gameTileSize*2; gameTileSize*6, gameTileSize*2];
-blockBuilderT = [gameTileSize*5, gameTileSize*1; gameTileSize*4, gameTileSize*2; gameTileSize*5, gameTileSize*2; gameTileSize*6, gameTileSize*2];
+blockBuilderZ = [gameTileSize*5, gameTileSize*1; gameTileSize*4, gameTileSize*1; gameTileSize*5, gameTileSize*2; gameTileSize*6, gameTileSize*2];
+blockBuilderT = [gameTileSize*5, gameTileSize*2; gameTileSize*5, gameTileSize*1; gameTileSize*4, gameTileSize*2; gameTileSize*6, gameTileSize*2];
 
 blockBuilder = blockBuilderT;
 %% Game Loop
@@ -65,6 +65,10 @@ while(gameState == 1)
             end
         elseif p == 's'
             tickIterator = gravityIter;
+        elseif p == 'w'
+            gameFieldHandle = drawComplexObject(gameFieldHandle, blockEmpty, blockBuilder);
+            blockBuilder = rotateBlock(gameFieldHandle, gameTileSize, blockBuilder, activeBlock);
+            gameFieldHandle = drawComplexObject(gameFieldHandle, activeBlock, blockBuilder);
         end
         
         set(gcf, 'CurrentCharacter', 'x');
