@@ -38,7 +38,7 @@ blockBuilderS = [gameTileSize*5, gameTileSize*1; gameTileSize*6, gameTileSize*1;
 blockBuilderZ = [gameTileSize*5, gameTileSize*1; gameTileSize*4, gameTileSize*1; gameTileSize*5, gameTileSize*2; gameTileSize*6, gameTileSize*2];
 blockBuilderT = [gameTileSize*5, gameTileSize*2; gameTileSize*5, gameTileSize*1; gameTileSize*4, gameTileSize*2; gameTileSize*6, gameTileSize*2];
 
-blockBuilder = blockBuilderT;
+blockBuilder = blockBuilderI;
 %% Game Loop
 gameFieldHandle = drawComplexObject(gameFieldHandle, activeBlock, blockBuilder);
 while(gameState == 1)

@@ -32,6 +32,10 @@ elseif strcmp(mode, 'right') == 1
         end
     end
 elseif strcmp(mode, 'center') == 1
+    fieldSize = size(gameFieldHandle);
+    if posX < 1 || posX > fieldSize(2)
+        return;
+    end
     if gameFieldHandle(posY, posX, 1) == 255
         if gameFieldHandle(posY, posX, 2) == 223
             if gameFieldHandle(posY, posX, 3) == 186
