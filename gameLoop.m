@@ -16,7 +16,7 @@ blockEmpty = imread('res/blockempty.png');
 
 %% Util vars
 activeBlock = block1;
-
+scoreVar = 0;
 blockWidth = 12;
 blockWidthLBorder = 2;
 blockWidthRBorder = 11;
@@ -79,6 +79,7 @@ while(gameState == 1)
         collision = getCollision(gameFieldHandle, gameTileSize, blockBuilder, 'down');
         tickIterator = 0;
         if(collision == 1)
+            scoreVar = scoreVar + 10;
             gameFieldHandle = checkLine(gameFieldHandle, gameTileSize);
             blockRandomizer = randi(7);
             switch blockRandomizer
@@ -104,8 +105,13 @@ while(gameState == 1)
                     blockBuilder = blockBuilderT;
                     activeBlock = block7;
             end
-            
-            gameFieldHandle = drawComplexObject(gameFieldHandle, activeBlock, blockBuilder);
+            collision = getCollision(gameFieldHandle, gameTileSize, blockBuilder, 'center');
+            if(collision == 1)
+                set(handles.gameState, 'userdata', 0);
+                handles.startButton.String = 'START';
+            else
+                gameFieldHandle = drawComplexObject(gameFieldHandle, activeBlock, blockBuilder);
+            end
         else
             gameFieldHandle = drawComplexObject(gameFieldHandle, blockEmpty, blockBuilder);
             blockBuilder(:, 2) = blockBuilder(:, 2) + gameTileSize;
@@ -115,7 +121,7 @@ while(gameState == 1)
     
     gameState = get(handles.gameState, 'userdata');
 
-    handles.scoreLabel.String = tickIterator;
+    handles.scoreLabel.String = scoreVar;
     
     %% Render
     
